@@ -42,7 +42,7 @@ More comprehensive command line references can be found [here](http://www.comput
 
 `dmesg` (Displays all the kernel output since boot. It’s pretty difficult to read, but sometimes you see things in there about the wifi getting disconnected and so forth.)
 
-`uptime` (Show how long the system is running and show load average of last minute/5 minutes/15 minutes)
+`uptime` (Shows how long the system has been running and the load average of last minute/5 minutes/15 minutes)
 
 `crontab -l` (Display cron jobs)
 
@@ -69,6 +69,10 @@ You may see an error that references a loose object, or a corrupted git reposito
 It is recommended to run `oref0-reset-git` in cron so that if the repository gets corrupted it can quickly reset itself. 
 
 Warning: do not run any openaps commands with sudo in front of it `sudo openaps`. If you do, your .git permissions will get messed up. Sudo should only be used when a command needs root permissions, and openaps does not need that. Such permission problems can be corrected by running `sudo chown -R pi.pi .git` in the openaps directory.  If you are using an Intel Edison, run `sudo chown -R edison.users .git`.
+
+## Debugging Disk Space Issues
+
+If you are having errors related to disk space shortages as determined by `df -h` you can use a very lightweight and fast tool called ncdu (a command-line disk usage analyzer) to determine what folders and files on your system are using the most disk space. You can install ncdu as follows: `sudo apt-get install ncdu`. You can run it by running the following command: `cd / && sudo ncdu` and follow the interactive screen to find your disk hogging folders.
 
 ## Environment variables
 
@@ -99,7 +103,9 @@ A JSON file did not contain entries.
 
 ### Unable to upload to http//my-nightscout-website.com
 
-OpenAPS has failed to upload to the configured nightscout website.
+OpenAPS has failed to upload to the configured nightscout website. If you're using a Medtronic CGM and no BG readings appear in nightscout, connect to your rig and the directory of your openaps app (default is myopenaps) run
+
+`openaps first-upload`
 
 ### [No JSON object could be decoded](https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#safe=active&q=openaps+%27No+JSON+object+could+be+decoded%27)
 
